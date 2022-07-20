@@ -36,11 +36,11 @@ Egy lehetséges mód a hardveres virtualizáció állapotának ellenőrzésére 
 
 Linux host alatt ez még ennél is egyszerűbb: 
 
-<pre class="con">
+```sh
 # grep -E "svm|vmx" /proc/cpuinfo
 flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq monitor ds_cpl <span style="color: yellow;">vmx</span> smx est tm2 ssse3 cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single fsgsbase avx2 invpcid rdseed clflushopt md_clear flush_l1d arch_capabilities
 flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq monitor ds_cpl <span style="color: yellow;">vmx</span> smx est tm2 ssse3 cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single fsgsbase avx2 invpcid rdseed clflushopt md_clear flush_l1d arch_capabilities
-</pre>
+```
 
 ### 2.2 A telepítőcsomag és esetleges függőségének beszerzése
 
@@ -48,7 +48,7 @@ A projekt főoldaláról is könnyen megtalálhatjuk a [Downloads](https://www.v
 
 Linux esetében előfordulhat, hogy kelleni fog a `libvpx` csomag valamelyik verziója és még olyan is lehet, hogy külön kell keresgélnünk a fájlra. Ha már megvan, akkor könnyen megy a telepítés, majd a további, esetlegesen szükséges csomagok a kernelmodulok fordításához (a példa renszer egy openSUSE Tumbleweed): 
 
-<pre class="con">
+```sh
 # zypper install libvpx4
 [...]
 
@@ -57,7 +57,7 @@ Linux esetében előfordulhat, hogy kelleni fog a `libvpx` csomag valamelyik ver
 
 # zypper install kernel-default-devel make gcc
 [...]
-</pre>
+```
 
 Linux alá nem `.rpm`-ből is lehet telepíteni, ha az **All distributions** opciót választjuk a [Linux Downloads](https://www.virtualbox.org/wiki/Linux_Downloads) oldalon. Ekkor a program a `/opt` alá települ (elvileg). 
 
@@ -71,7 +71,7 @@ Letöltése [innen](https://www.virtualbox.org/wiki/Testbuilds) lehetséges.
 
 Az eredeti hiba, ami miatt legalább egyszer ilyen kiadás mellett döntöttem (a régi kernelre való visszatérés helyett): 
 
-<pre class="con">
+```sh
 # /sbin/vboxconfig
 vboxdrv.sh: Stopping VirtualBox services.
 vboxdrv.sh: Starting VirtualBox services.
@@ -100,13 +100,13 @@ cc1: some warnings being treated as errors
 make[2]: *** [/usr/src/linux-5.18.1-1/scripts/Makefile.build:289: /tmp/vbox.0/linux/VBoxNetFlt-linux.o] Error 1
 make[1]: *** [../../../linux-5.18.1-1/Makefile:1848: /tmp/vbox.0] Error 2
 make: *** [/tmp/vbox.0/Makefile-footer.gmk:117: vboxnetflt] Error 2
-</pre>
+```
 
 A megoldás tehát az volt, hogy az épp aktuális testing verziót voltam kénytelen telepíteni, miután eltávoltítottam az eredeti, `.rpm`-ből telepítettet. 
 
 Fontos, hogy a [talált ajánlás](https://www.techpowerup.com/forums/threads/virtualbox-on-new-kernel-5-18.295255/) szerint az **Extension Pack** is biztosan kell (ezt már a VirtualBox GUI-jából telepítettem): 
 
-<pre class="con">
+```sh
 # rpm -qa | grep -i virtualbox
 VirtualBox-6.1-6.1.34_150636_openSUSE150-2.x86_64
 
@@ -141,7 +141,7 @@ vboxdrv.sh: Building VirtualBox kernel modules.
 ~> VBoxManage startvm --type headless rockysrv1
 Waiting for VM "rockysrv1" to power on...
 VM "rockysrv1" has been successfully started.
-</pre>
+```
 
 
 
